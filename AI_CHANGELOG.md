@@ -1,5 +1,35 @@
 # Changelog — AnimeHub
 
+## [Unreleased] — GAURAVANIME Platform Completion (2026-09-12)
+
+### Added
+- Unified anime and reading `Title` catalogue with format filtering and helper functions.
+- 12 manga/manhwa/manhua/novel seed entries in `src/data/reading.ts`.
+- Routed Home, Browse/Search/Genre, Details, Library, Profile, Calendar, and Not Found pages.
+- Local-first library and profile persistence with favorites, status, ratings, progress, continue items, and statistics.
+- Reusable common UI components for cards, badges, sections, skeletons, tabs, genre chips, empty states, and library actions.
+- React Router provider wiring in `src/App.tsx`.
+
+### Changed
+- Expanded `src/data/catalog.ts` to combine anime and reading catalogues.
+- Converted internal navigation in `Navbar`, `Footer`, tabs, genre chips, and empty states to React Router links.
+- Hardened `LibraryContext` progress handling for titles with unknown totals.
+- Replaced `any` types in Jikan episode, season, and genre API responses with typed interfaces.
+
+### Fixed
+- TypeScript errors in new routed pages and shared components.
+- ESLint errors from unused imports, variables, and explicit `any` types.
+- Route handling for `/novels`, `/genre/:genre`, search queries, and detail pages.
+- Build and route smoke tests now pass.
+
+### Verified
+- `npm run build` — passes.
+- `npm run lint` — zero errors; three existing React Fast Refresh warnings remain.
+- Dev server route checks returned HTTP 200 for `/`, `/browse`, `/anime/5`, and `/library`.
+- Anime and reading MAL ID sets have no collisions.
+
+---
+
 ## [Unreleased] — AI Handoff System Setup + App.tsx Creation (2026-09-10)
 
 ### Added
