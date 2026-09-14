@@ -2,29 +2,42 @@ import { animeList } from "./anime";
 import { readingCatalog } from "./reading";
 import type { Title, TitleType } from "@/types";
 
-export const animeCatalog: Title[] = animeList.map((a) => ({
-  id: String(a.mal_id),
-  mal_id: a.mal_id,
-  type: "anime",
-  title: a.title,
-  title_english: a.title_english,
-  title_japanese: a.title_japanese,
-  image: a.image,
-  score: a.score,
-  year: a.year,
-  episodes: a.episodes,
-  chapters: null,
-  volumes: null,
-  status: a.status as Title["status"],
-  genres: a.genres,
-  studios: a.studios,
-  author: "",
-  rating: a.rating,
-  season: a.season,
-  duration: a.duration,
-  synopsis: a.synopsis,
-  popularity: a.mal_id,
-}));
+function posterFallbacks(image: string): string[] {
+  const standard = image.replace(/l\.jpg$/, ".jpg");
+  const large = image.endsWith(".jpg") && !image.endsWith("l.jpg")
+    ? image.replace(/\.jpg$/, "l.jpg")
+    : image;
+  return Array.from(new Set([standard, large])).filter((source) => source !== image);
+}
+
+export const animeCatalog: Title[] = [
+  ...animeList.map((a) => ({
+    id: String(a.mal_id),
+    mal_id: a.mal_id,
+    type: "anime" as const,
+    title: a.title,
+    title_english: a.title_english,
+    title_japanese: a.title_japanese,
+    image: a.image,
+    imageFallbacks: a.imageFallbacks?.length ? a.imageFallbacks : posterFallbacks(a.image),
+    anilist_id: a.anilist_id,
+    banner: a.banner,
+    score: a.score,
+    year: a.year,
+    episodes: a.episodes,
+    chapters: null,
+    volumes: null,
+    status: a.status as Title["status"],
+    genres: a.genres,
+    studios: a.studios,
+    author: "",
+    rating: a.rating,
+    season: a.season,
+    duration: a.duration,
+    synopsis: a.synopsis,
+    popularity: a.popularity ?? a.mal_id,
+  })),
+];
 
 export const allTitles: Title[] = [...animeCatalog, ...readingCatalog];
 

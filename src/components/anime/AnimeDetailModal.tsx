@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { Anime } from "@/data/types";
 import { displayTitle } from "@/data/anime";
+import PosterImage from "@/components/common/PosterImage";
 
 interface AnimeDetailModalProps {
   anime: Anime | null;
@@ -65,9 +66,11 @@ export default function AnimeDetailModal({
 
             {/* Hero banner */}
             <div className="relative h-64 sm:h-80 overflow-hidden">
-              <img
+              <PosterImage
                 src={anime.image}
+                fallbacks={anime.imageFallbacks}
                 alt={title}
+                loading="eager"
                 className="h-full w-full object-cover object-top"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />

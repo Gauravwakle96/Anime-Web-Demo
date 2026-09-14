@@ -1,5 +1,31 @@
 # Changelog — AnimeHub
 
+## [Unreleased] — Poster Image Root-Cause Fix (2026-09-13)
+
+### Added
+- `src/components/common/PosterImage.tsx` — reusable lazy-loading poster component with source fallbacks and a clean final placeholder.
+- Title-specific poster URLs for all 12 manga/manhwa/manhua/novel seed entries.
+- `imageFallbacks` metadata on anime and unified `Title` records.
+
+### Changed
+- Replaced direct poster `<img>` rendering across Home, catalogue cards, details, library, profile, calendar, legacy anime cards, hero, modal, and stats components.
+- Added standard/large fallback derivation for static catalogue images.
+- Added Jikan JPG/WebP image variants as API fallbacks.
+
+### Fixed
+- Corrected 18 stale MyAnimeList CDN poster URLs in `src/data/anime.ts`.
+- Corrected MAL IDs for Lycoris Recoil, Bocchi the Rock!, and Odd Taxi.
+- Removed the generic question-mark fallback from reading seeds by supplying each title's own poster.
+- Prevented browser broken-image icons, raw alt text on failed images, and infinite retry loops.
+
+### Verified
+- `npm run build` — passes.
+- `npm run lint` — zero errors; three existing React Fast Refresh warnings remain.
+- HTTP validation passed for every primary poster URL and generated fallback variant.
+- Dev server route checks returned HTTP 200 for `/`, `/browse`, `/anime/52991`, and `/manga`.
+
+---
+
 ## [Unreleased] — GAURAVANIME Platform Completion (2026-09-12)
 
 ### Added

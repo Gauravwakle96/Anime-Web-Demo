@@ -7,6 +7,7 @@ import EmptyState from "@/components/common/EmptyState";
 import LibraryActions from "@/components/common/LibraryActions";
 import SectionHeader from "@/components/common/SectionHeader";
 import { StatusBadge } from "@/components/common/StatusBadge";
+import PosterImage from "@/components/common/PosterImage";
 import { displayTitle, progressLabel, typeLabel } from "@/lib/title";
 import type { LibraryEntry, LibraryStatus, Title } from "@/types";
 
@@ -89,7 +90,13 @@ function LibraryRow({ entry, title }: { entry: LibraryEntry; title: Title }) {
   return (
     <article className="grid gap-4 rounded-2xl border border-border/50 bg-card/40 p-4 shadow-lg shadow-black/5 sm:grid-cols-[92px_1fr] lg:grid-cols-[120px_1fr_auto]">
       <Link to={`/${title.type}/${title.id}`} className="group block overflow-hidden rounded-xl border border-border/40">
-        <img src={title.image} alt={displayName} className="aspect-[3/4] w-full object-cover transition group-hover:scale-105" />
+        <PosterImage
+          src={title.image}
+          fallbacks={title.imageFallbacks}
+          alt={displayName}
+          loading="lazy"
+          className="aspect-[3/4] w-full object-cover transition group-hover:scale-105"
+        />
       </Link>
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">

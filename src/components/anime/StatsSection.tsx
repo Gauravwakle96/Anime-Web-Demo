@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Star, BarChart3, Palette, Building2 } from "lucide-react";
 import { animeList, allGenres, allStudios, displayTitle } from "@/data/anime";
 import { cn } from "@/lib/utils";
+import PosterImage from "@/components/common/PosterImage";
 
 export default function StatsSection() {
   // Score distribution
@@ -212,9 +213,11 @@ export default function StatsSection() {
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 text-sm font-bold">
                       {medals[i]}
                     </span>
-                    <img
+                    <PosterImage
                       src={anime.image}
+                      fallbacks={anime.imageFallbacks}
                       alt={t}
+                      loading="lazy"
                       className="h-10 w-8 rounded-md object-cover"
                     />
                     <div className="flex-1 min-w-0">

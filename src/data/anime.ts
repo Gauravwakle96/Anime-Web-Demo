@@ -1,6 +1,16 @@
 import { type Anime } from "./types";
+import { expandedAnime } from "./expandedAnime";
 
-export const animeList: Anime[] = [
+function normalizeTitle(value: string | null) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const staticAnimeList: Anime[] = [
   {
     key: "fmab",
     mal_id: 5114,
@@ -407,7 +417,7 @@ export const animeList: Anime[] = [
     title: "Sousou no Frieren",
     title_english: "Frieren: Beyond Journey's End",
     title_japanese: "葬送のフリーレン",
-    image: "https://cdn.myanimelist.net/images/anime/1475/141209l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1015/138006.jpg",
     score: 9.15,
     year: 2023,
     episodes: 28,
@@ -427,7 +437,7 @@ export const animeList: Anime[] = [
     title: "Cyberpunk: Edgerunners",
     title_english: "Cyberpunk: Edgerunners",
     title_japanese: "サイバーパンク エッジランナーズ",
-    image: "https://cdn.myanimelist.net/images/anime/1267/131171l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1516/116475.jpg",
     score: 8.72,
     year: 2022,
     episodes: 10,
@@ -447,7 +457,7 @@ export const animeList: Anime[] = [
     title: "Blue Lock",
     title_english: "Blue Lock",
     title_japanese: "ブルーロック",
-    image: "https://cdn.myanimelist.net/images/anime/1303/133475l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1162/130800.jpg",
     score: 8.28,
     year: 2022,
     episodes: 24,
@@ -463,11 +473,11 @@ export const animeList: Anime[] = [
   },
   {
     key: "lycoris-recoil",
-    mal_id: 49428,
+    mal_id: 50709,
     title: "Lycoris Recoil",
     title_english: "Lycoris Recoil",
     title_japanese: "リコリス・リコイル",
-    image: "https://cdn.myanimelist.net/images/anime/1380/131381l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1261/127311.jpg",
     score: 8.45,
     year: 2022,
     episodes: 13,
@@ -483,11 +493,11 @@ export const animeList: Anime[] = [
   },
   {
     key: "bocchi",
-    mal_id: 49826,
+    mal_id: 47917,
     title: "Bocchi the Rock!",
     title_english: "Bocchi the Rock!",
     title_japanese: "ぼっち・ざ・ろっく！",
-    image: "https://cdn.myanimelist.net/images/anime/1323/132341l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1448/127956.jpg",
     score: 8.59,
     year: 2022,
     episodes: 12,
@@ -507,7 +517,7 @@ export const animeList: Anime[] = [
     title: "Ousama Ranking",
     title_english: "Ranking of Kings",
     title_japanese: "王様ランキング",
-    image: "https://cdn.myanimelist.net/images/anime/1299/125529l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1950/113662.jpg",
     score: 8.61,
     year: 2021,
     episodes: 23,
@@ -523,11 +533,11 @@ export const animeList: Anime[] = [
   },
   {
     key: "odd-taxi",
-    mal_id: 47256,
+    mal_id: 46102,
     title: "Odd Taxi",
     title_english: "Odd Taxi",
     title_japanese: "オッドタクシー",
-    image: "https://cdn.myanimelist.net/images/anime/1325/122049l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1981/113348.jpg",
     score: 8.57,
     year: 2021,
     episodes: 13,
@@ -547,7 +557,7 @@ export const animeList: Anime[] = [
     title: "Tokyo Revengers",
     title_english: "Tokyo Revengers",
     title_japanese: "東京卍リベンジャーズ",
-    image: "https://cdn.myanimelist.net/images/anime/1456/119579l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1982/127874.jpg",
     score: 7.92,
     year: 2021,
     episodes: 24,
@@ -567,7 +577,7 @@ export const animeList: Anime[] = [
     title: "Mushoku Tensei: Isekai Ittara Honki Dasu",
     title_english: "Mushoku Tensei: Jobless Reincarnation",
     title_japanese: "無職転生 〜異世界行ったら本気だす〜",
-    image: "https://cdn.myanimelist.net/images/anime/1503/115837l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1747/116922.jpg",
     score: 8.53,
     year: 2021,
     episodes: 23,
@@ -587,7 +597,7 @@ export const animeList: Anime[] = [
     title: "Vinland Saga",
     title_english: "Vinland Saga",
     title_japanese: "ヴィンランド・サガ",
-    image: "https://cdn.myanimelist.net/images/anime/1288/109231l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1500/103005.jpg",
     score: 8.76,
     year: 2019,
     episodes: 24,
@@ -607,7 +617,7 @@ export const animeList: Anime[] = [
     title: "Yakusoku no Neverland",
     title_english: "The Promised Neverland",
     title_japanese: "約束のネバーランド",
-    image: "https://cdn.myanimelist.net/images/anime/1407/106267l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1830/118780.jpg",
     score: 8.27,
     year: 2019,
     episodes: 12,
@@ -627,7 +637,7 @@ export const animeList: Anime[] = [
     title: "Dorohedoro",
     title_english: "Dorohedoro",
     title_japanese: "ドロヘドロ",
-    image: "https://cdn.myanimelist.net/images/anime/1394/108293l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1181/148693.jpg",
     score: 8.32,
     year: 2020,
     episodes: 12,
@@ -647,7 +657,7 @@ export const animeList: Anime[] = [
     title: "Bakemonogatari",
     title_english: "Bakemonogatari",
     title_japanese: "化物語",
-    image: "https://cdn.myanimelist.net/images/anime/1280/112853l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/11/75274.jpg",
     score: 8.38,
     year: 2009,
     episodes: 15,
@@ -667,7 +677,7 @@ export const animeList: Anime[] = [
     title: "Gintama",
     title_english: "Gintama",
     title_japanese: "銀魂",
-    image: "https://cdn.myanimelist.net/images/anime/10/75194l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/10/73274.jpg",
     score: 8.66,
     year: 2006,
     episodes: 201,
@@ -707,7 +717,7 @@ export const animeList: Anime[] = [
     title: "Cowboy Bebop",
     title_english: "Cowboy Bebop",
     title_japanese: "カウボーイビバップ",
-    image: "https://cdn.myanimelist.net/images/anime/1919/105821l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/4/19644.jpg",
     score: 8.78,
     year: 1998,
     episodes: 26,
@@ -727,7 +737,7 @@ export const animeList: Anime[] = [
     title: "Neon Genesis Evangelion",
     title_english: "Neon Genesis Evangelion",
     title_japanese: "新世紀エヴァンゲリオン",
-    image: "https://cdn.myanimelist.net/images/anime/1314/108932l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1314/108941.jpg",
     score: 8.37,
     year: 1995,
     episodes: 26,
@@ -747,7 +757,7 @@ export const animeList: Anime[] = [
     title: "Haikyuu!!",
     title_english: "Haikyuu!!",
     title_japanese: "ハイキュー！！",
-    image: "https://cdn.myanimelist.net/images/anime/1240/105821l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/7/76014.jpg",
     score: 8.71,
     year: 2014,
     episodes: 25,
@@ -767,7 +777,7 @@ export const animeList: Anime[] = [
     title: "Dragon Ball Z",
     title_english: "Dragon Ball Z",
     title_japanese: "ドラゴンボールZ",
-    image: "https://cdn.myanimelist.net/images/anime/1460/105821l.jpg",
+    image: "https://cdn.myanimelist.net/images/anime/1277/142022.jpg",
     score: 8.31,
     year: 1989,
     episodes: 291,
@@ -802,6 +812,61 @@ export const animeList: Anime[] = [
       "Two and a half years after leaving the village, Naruto returns stronger. The Akatsuki organization hunts tailed beasts, and Naruto must protect his friends and achieve his dream of becoming Hokage.",
   },
 ];
+
+const seenIds = new Set<number>();
+const seenTitles = new Set<string>();
+
+const expandedAnimeList: Anime[] = expandedAnime
+  .filter((item) => {
+    const title = normalizeTitle(item.title);
+    const englishTitle = normalizeTitle(item.title_english);
+    
+    const inStatic = staticAnimeList.some((anime) =>
+      anime.mal_id === item.mal_id ||
+      normalizeTitle(anime.title) === title ||
+      normalizeTitle(anime.title_english) === title ||
+      normalizeTitle(anime.title) === englishTitle ||
+      normalizeTitle(anime.title_english) === englishTitle
+    );
+    if (inStatic) return false;
+
+    if (seenIds.has(item.mal_id)) return false;
+    if (title && seenTitles.has(title)) return false;
+    if (englishTitle && seenTitles.has(englishTitle)) return false;
+
+    seenIds.add(item.mal_id);
+    if (title) seenTitles.add(title);
+    if (englishTitle) seenTitles.add(englishTitle);
+
+    return true;
+  })
+  .map((item) => ({
+  key: `anilist-${item.mal_id}`,
+  mal_id: item.mal_id,
+  title: item.title,
+  title_english: item.title_english,
+  title_japanese: item.title_japanese,
+  image: item.image,
+  imageFallbacks: item.imageFallbacks,
+  anilist_id: item.anilist_id,
+  banner: item.banner,
+  source: item.source,
+  aired: item.aired,
+  popularity: item.popularity,
+  score: item.score,
+  year: item.year,
+  episodes: item.episodes,
+  status: item.status,
+  genres: item.genres,
+  studios: item.studios,
+  type: "TV",
+  rating: item.rating,
+  season: item.season,
+  duration: item.duration,
+  synopsis: item.synopsis,
+}));
+
+export const animeList: Anime[] = [...staticAnimeList, ...expandedAnimeList];
 
 /* ---------- Derived helpers ---------- */
 

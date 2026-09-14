@@ -4,6 +4,7 @@ import { getCurrentlyAiring } from "@/data/catalog";
 import EmptyState from "@/components/common/EmptyState";
 import SectionHeader from "@/components/common/SectionHeader";
 import { StatusBadge } from "@/components/common/StatusBadge";
+import PosterImage from "@/components/common/PosterImage";
 import TitleCard from "@/components/common/TitleCard";
 import { displayTitle, typeLabel } from "@/lib/title";
 
@@ -40,7 +41,13 @@ export default function CalendarPage() {
           <div className="grid gap-4">
             {airing.map((title) => (
               <article key={title.id} className="grid gap-4 rounded-2xl border border-border/50 bg-card/40 p-4 shadow-lg shadow-black/5 sm:grid-cols-[100px_1fr_auto]">
-                <img src={title.image} alt={displayTitle(title)} className="h-32 w-24 rounded-xl object-cover" />
+                <PosterImage
+                  src={title.image}
+                  fallbacks={title.imageFallbacks}
+                  alt={displayTitle(title)}
+                  loading="lazy"
+                  className="h-32 w-24 rounded-xl object-cover"
+                />
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <StatusBadge status={title.status} />

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLibrary } from "@/contexts/LibraryContext";
 import { useShowToast } from "@/contexts/ToastContext";
 import { cn } from "@/lib/utils";
+import PosterImage from "@/components/common/PosterImage";
 import type { Title } from "@/types";
 
 interface TitleCardProps {
@@ -55,11 +56,12 @@ export default function TitleCard({ title, index = 0, compact = false }: TitleCa
       )}
     >
       <div className="relative aspect-[3/4] overflow-hidden">
-        <img
+        <PosterImage
           src={title.image}
+          fallbacks={title.imageFallbacks}
           alt={displayName}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 

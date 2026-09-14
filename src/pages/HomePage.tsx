@@ -16,6 +16,7 @@ import SectionHeader from "@/components/common/SectionHeader";
 import SkeletonGrid from "@/components/common/SkeletonGrid";
 import TitleCard from "@/components/common/TitleCard";
 import TypeTabs from "@/components/common/TypeTabs";
+import PosterImage from "@/components/common/PosterImage";
 import { displayTitle, typeLabel } from "@/lib/title";
 import type { TitleType } from "@/types";
 
@@ -100,7 +101,13 @@ export default function HomePage() {
             <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-tr from-primary/20 to-accent/10 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-card/40 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl">
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
-                <img src={featured.image} alt={displayTitle(featured)} className="h-full w-full object-cover" />
+                <PosterImage
+                  src={featured.image}
+                  fallbacks={featured.imageFallbacks}
+                  alt={displayTitle(featured)}
+                  loading="eager"
+                  className="h-full w-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                 <div className="absolute inset-x-4 bottom-4">
                   <div className="flex items-center gap-2 text-xs font-semibold text-primary">

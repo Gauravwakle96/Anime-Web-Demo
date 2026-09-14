@@ -17,6 +17,8 @@ export interface Title {
   title_english: string | null;
   title_japanese: string | null;
   image: string;
+  imageFallbacks?: string[];
+  anilist_id?: number;
   banner?: string;
   score: number;
   year: number | null;

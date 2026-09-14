@@ -11,6 +11,7 @@ import SkeletonGrid from "@/components/common/SkeletonGrid";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import TitleCard from "@/components/common/TitleCard";
 import LibraryActions from "@/components/common/LibraryActions";
+import PosterImage from "@/components/common/PosterImage";
 import { displayTitle, formatYear, genreList, progressLabel, typeLabel } from "@/lib/title";
 import type { LibraryStatus, TitleType } from "@/types";
 
@@ -78,7 +79,13 @@ export default function DetailsPage() {
         </div>
         <div className="container relative grid min-h-[500px] items-end gap-8 py-12 lg:grid-cols-[220px_1fr] lg:py-16">
           <div className="relative mx-auto w-full max-w-[240px] overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
-            <img src={title.image} alt={displayName} className="h-full w-full object-cover" />
+            <PosterImage
+              src={title.image}
+              fallbacks={title.imageFallbacks}
+              alt={displayName}
+              loading="eager"
+              className="h-full w-full object-cover"
+            />
           </div>
           <div className="relative max-w-4xl">
             <button onClick={() => navigate(-1)} className="mb-5 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition hover:text-primary"><ArrowLeft className="h-3.5 w-3.5" /> Back</button>

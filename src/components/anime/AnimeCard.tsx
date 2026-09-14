@@ -3,6 +3,7 @@ import { Star, Play, Calendar, Tv } from "lucide-react";
 import type { Anime } from "@/data/types";
 import { displayTitle } from "@/data/anime";
 import { cn } from "@/lib/utils";
+import PosterImage from "@/components/common/PosterImage";
 
 interface AnimeCardProps {
   anime: Anime;
@@ -26,11 +27,12 @@ export default function AnimeCard({ anime, index, onClick }: AnimeCardProps) {
     >
       {/* Poster */}
       <div className="relative aspect-[3/4] overflow-hidden">
-        <img
+        <PosterImage
           src={anime.image}
+          fallbacks={anime.imageFallbacks}
           alt={title}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="transition-transform duration-500 group-hover:scale-110"
         />
 
         {/* Gradient overlay */}

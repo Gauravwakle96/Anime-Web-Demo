@@ -5,6 +5,12 @@ export interface Anime {
   title_english: string | null;
   title_japanese: string | null;
   image: string;
+  imageFallbacks?: string[];
+  anilist_id?: number;
+  banner?: string;
+  source?: string;
+  aired?: string;
+  popularity?: number;
   score: number;
   year: number | null;
   episodes: number | null;

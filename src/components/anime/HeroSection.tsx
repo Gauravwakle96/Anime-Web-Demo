@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Star, Play, TrendingUp } from "lucide-react";
 import { animeList, displayTitle } from "@/data/anime";
 import type { Anime } from "@/data/types";
+import PosterImage from "@/components/common/PosterImage";
 
 interface HeroSectionProps {
   onAnimeClick: (anime: Anime) => void;
@@ -16,9 +17,11 @@ export default function HeroSection({ onAnimeClick }: HeroSectionProps) {
     <section className="relative overflow-hidden" id="hero-section">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img
+        <PosterImage
           src={hero.image}
+          fallbacks={hero.imageFallbacks}
           alt=""
+          loading="eager"
           className="h-full w-full object-cover object-top opacity-20 blur-sm scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/70 to-background" />
@@ -99,9 +102,11 @@ export default function HeroSection({ onAnimeClick }: HeroSectionProps) {
                       : "w-40 h-56 opacity-80"
                   }`}
                 >
-                  <img
+                  <PosterImage
                     src={anime.image}
+                    fallbacks={anime.imageFallbacks}
                     alt={t}
+                    loading="lazy"
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

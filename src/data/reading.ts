@@ -1,9 +1,34 @@
 import type { Title, TitleStatus, TitleType } from "@/types";
 
-export const MAL_QUESTIONMARK_IMAGE =
-  "https://cdn.myanimelist.net/images/questionmark_230x330.png";
-
 type ReadingType = Exclude<TitleType, "anime">;
+
+function posterFallbacks(image: string): string[] {
+  const standard = image.replace(/l\.jpg$/, ".jpg");
+  const large = image.endsWith(".jpg") && !image.endsWith("l.jpg")
+    ? image.replace(/\.jpg$/, "l.jpg")
+    : image;
+  return Array.from(new Set([standard, large])).filter((source) => source !== image);
+}
+
+export function createReadingTitle(seed: ReadingSeed): Title {
+  const { genres, image = "", ...title } = seed;
+
+  return {
+    ...title,
+    id: String(seed.mal_id),
+    image,
+    imageFallbacks: posterFallbacks(image),
+    genres: genres.filter(Boolean).join("|"),
+    studios: "",
+    episodes: null,
+    chapters: seed.chapters ?? null,
+    volumes: seed.volumes ?? null,
+    rating: seed.rating ?? "Not available",
+    season: seed.season ?? null,
+    duration: seed.duration ?? "Not available",
+    popularity: seed.popularity ?? 999999,
+  };
+}
 
 interface ReadingSeed {
   mal_id: number;
@@ -29,25 +54,6 @@ interface ReadingSeed {
   published?: string;
 }
 
-export function createReadingTitle(seed: ReadingSeed): Title {
-  const { genres, image = MAL_QUESTIONMARK_IMAGE, ...title } = seed;
-
-  return {
-    ...title,
-    id: String(seed.mal_id),
-    image,
-    genres: genres.filter(Boolean).join("|"),
-    studios: "",
-    episodes: null,
-    chapters: seed.chapters ?? null,
-    volumes: seed.volumes ?? null,
-    rating: seed.rating ?? "Not available",
-    season: seed.season ?? null,
-    duration: seed.duration ?? "Not available",
-    popularity: seed.popularity ?? 999999,
-  };
-}
-
 const readingSeeds: ReadingSeed[] = [
   {
     mal_id: 2,
@@ -55,6 +61,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Berserk",
     title_english: "Berserk",
     title_japanese: "ベルセルク",
+    image: "https://cdn.myanimelist.net/images/manga/1/157897.jpg",
     score: 9.47,
     year: 1989,
     status: "Publishing",
@@ -71,6 +78,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Fullmetal Alchemist",
     title_english: "Fullmetal Alchemist",
     title_japanese: "鋼の錬金術師",
+    image: "https://cdn.myanimelist.net/images/manga/3/243675.jpg",
     score: 9.03,
     year: 2001,
     chapters: 116,
@@ -89,6 +97,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "One Piece",
     title_english: "One Piece",
     title_japanese: "ONE PIECE",
+    image: "https://cdn.myanimelist.net/images/manga/2/253146.jpg",
     score: 9.22,
     year: 1997,
     status: "Publishing",
@@ -105,6 +114,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Solo Leveling",
     title_english: "Solo Leveling",
     title_japanese: null,
+    image: "https://cdn.myanimelist.net/images/manga/3/222295.jpg",
     score: 8.55,
     year: 2018,
     chapters: 201,
@@ -123,6 +133,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Tower of God",
     title_english: "Tower of God",
     title_japanese: null,
+    image: "https://cdn.myanimelist.net/images/manga/2/223694.jpg",
     score: 8.33,
     year: 2010,
     status: "Publishing",
@@ -139,6 +150,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Omniscient Reader's Viewpoint",
     title_english: "Omniscient Reader's Viewpoint",
     title_japanese: null,
+    image: "https://cdn.myanimelist.net/images/manga/2/238873.jpg",
     score: 8.66,
     year: 2020,
     status: "Publishing",
@@ -155,6 +167,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Quanzhi Gaoshou",
     title_english: "The King's Avatar",
     title_japanese: null,
+    image: "https://cdn.myanimelist.net/images/manga/1/220436.jpg",
     score: 7.71,
     year: 2015,
     status: "Publishing",
@@ -171,6 +184,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Douluo Dalu",
     title_english: "Soul Land",
     title_japanese: null,
+    image: "https://cdn.myanimelist.net/images/manga/4/221353.jpg",
     score: 7.8,
     year: 2011,
     status: "Publishing",
@@ -187,6 +201,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Mo Dao Zu Shi",
     title_english: "Grandmaster of Demonic Cultivation: Mo Dao Zu Shi",
     title_japanese: null,
+    image: "https://cdn.myanimelist.net/images/manga/1/267154.jpg",
     score: 8.65,
     year: 2017,
     chapters: 260,
@@ -204,6 +219,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Overlord",
     title_english: "Overlord",
     title_japanese: "オーバーロード",
+    image: "https://cdn.myanimelist.net/images/manga/1/160558.jpg",
     score: 8.61,
     year: 2012,
     status: "Publishing",
@@ -220,6 +236,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Mushoku Tensei: Isekai Ittara Honki Dasu",
     title_english: "Mushoku Tensei: Jobless Reincarnation",
     title_japanese: "無職転生 ～異世界行ったら本気だす～",
+    image: "https://cdn.myanimelist.net/images/manga/3/120337.jpg",
     score: 8.81,
     year: 2014,
     chapters: 330,
@@ -238,6 +255,7 @@ const readingSeeds: ReadingSeed[] = [
     title: "Re:Zero kara Hajimeru Isekai Seikatsu",
     title_english: "Re:ZERO -Starting Life in Another World-",
     title_japanese: "Re：ゼロから始める異世界生活",
+    image: "https://cdn.myanimelist.net/images/manga/1/129447.jpg",
     score: 8.88,
     year: 2014,
     status: "Publishing",

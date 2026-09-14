@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { allTitles } from "@/data/catalog";
 import { useLibrary } from "@/contexts/LibraryContext";
 import EmptyState from "@/components/common/EmptyState";
+import PosterImage from "@/components/common/PosterImage";
 import SectionHeader from "@/components/common/SectionHeader";
 import TitleCard from "@/components/common/TitleCard";
 import { displayTitle, progressLabel } from "@/lib/title";
@@ -63,7 +64,13 @@ export default function ProfilePage() {
                 if (!title) return null;
                 return (
                   <Link key={entry.titleId} to={`/${title.type}/${title.id}`} className="flex items-center gap-4 rounded-xl border border-border/40 bg-card/40 p-3 transition hover:border-primary/40 hover:bg-card/70">
-                    <img src={title.image} alt={displayTitle(title)} className="h-14 w-10 rounded-md object-cover" />
+                    <PosterImage
+                      src={title.image}
+                      fallbacks={title.imageFallbacks}
+                      alt={displayTitle(title)}
+                      loading="lazy"
+                      className="h-14 w-10 rounded-md object-cover"
+                    />
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-semibold">{displayTitle(title)}</p>
                       <p className="mt-0.5 text-xs text-muted-foreground">Updated {new Date(entry.updatedAt).toLocaleDateString()}</p>

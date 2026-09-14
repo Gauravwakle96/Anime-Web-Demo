@@ -163,6 +163,11 @@ function mapAnime(item: JikanAnime): Title {
     title_english: item.title_english,
     title_japanese: item.title_japanese,
     image: item.images.jpg.large_image_url,
+    imageFallbacks: [
+      item.images.jpg.image_url,
+      item.images.webp.large_image_url,
+      item.images.webp.image_url,
+    ],
     banner: item.images.jpg.large_image_url,
     score: item.score ?? 0,
     year: item.year,
@@ -197,6 +202,11 @@ function mapManga(item: JikanManga, type: TitleType): Title {
     title_english: item.title_english,
     title_japanese: item.title_japanese,
     image: item.images.jpg.large_image_url,
+    imageFallbacks: [
+      item.images.jpg.image_url,
+      item.images.webp.large_image_url,
+      item.images.webp.image_url,
+    ],
     banner: item.images.jpg.large_image_url,
     score: item.score ?? 0,
     year: item.published?.from ? new Date(item.published.from).getFullYear() : null,
