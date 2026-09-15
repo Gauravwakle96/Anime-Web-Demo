@@ -791,26 +791,6 @@ const staticAnimeList: Anime[] = [
     synopsis:
       "Goku defends Earth from powerful foes with the help of his friends. The definitive battle shonen that popularized the genre worldwide with iconic transformations and tournaments.",
   },
-  {
-    key: "naruto-shippuden",
-    mal_id: 1735,
-    title: "Naruto: Shippuden",
-    title_english: "Naruto Shippuden",
-    title_japanese: "ナルト 疾風伝",
-    image: "https://cdn.myanimelist.net/images/anime/1565/111305l.jpg",
-    score: 8.29,
-    year: 2007,
-    episodes: 500,
-    status: "Finished Airing",
-    genres: "Action|Adventure|Fantasy",
-    studios: "Studio Pierrot",
-    type: "TV",
-    rating: "PG-13 - Teens 13 or older",
-    season: "winter",
-    duration: "23 min per ep",
-    synopsis:
-      "Two and a half years after leaving the village, Naruto returns stronger. The Akatsuki organization hunts tailed beasts, and Naruto must protect his friends and achieve his dream of becoming Hokage.",
-  },
 ];
 
 const seenIds = new Set<number>();

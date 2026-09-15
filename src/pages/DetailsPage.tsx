@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, BookOpen, CalendarDays, ChevronRight, Clock, Play, Star, Tv, User } from "lucide-react";
+import { ArrowLeft, BookOpen, CalendarDays, ChevronRight, Clock, ExternalLink, Play, Star, Tv, User } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { allTitles, getPopular, getTopRated } from "@/data/catalog";
 import { useLibrary } from "@/contexts/LibraryContext";
@@ -109,6 +109,11 @@ export default function DetailsPage() {
               <LibraryActions title={title} onStatusChange={handleAdd} />
               {!entry && <button onClick={() => handleAdd(initialStatus)} className="inline-flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-accent px-5 text-sm font-bold text-white shadow-lg shadow-primary/25 transition hover:-translate-y-0.5"><Play className="h-4 w-4 fill-current" /> {isAnime ? "Start watching" : "Start reading"}</button>}
             </div>
+            {title.mal_id && (
+              <a href={"https:" + "//myanimelist.net/" + (title.type === "anime" ? "anime" : "manga") + "/" + title.mal_id} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                View official metadata <ExternalLink className="h-4 w-4" />
+              </a>
+            )}
           </div>
         </div>
       </section>

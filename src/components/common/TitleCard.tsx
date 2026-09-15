@@ -50,6 +50,15 @@ export default function TitleCard({ title, index = 0, compact = false }: TitleCa
       transition={{ duration: 0.4, delay: index * 0.04, ease: "easeOut" }}
       whileHover={{ y: -6, scale: 1.02 }}
       onClick={handleOpen}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleOpen();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={`View details for ${displayName}`}
       className={cn(
         "group relative flex flex-col rounded-2xl overflow-hidden bg-card/60 border border-border/40 backdrop-blur-sm cursor-pointer shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-primary/10 transition-shadow",
         compact && "rounded-xl"

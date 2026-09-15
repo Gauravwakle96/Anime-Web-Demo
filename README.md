@@ -1,12 +1,12 @@
-# AnimeHub — Anime Discovery App
+# GAURAVANIME — Anime Discovery App
 
-A modern, animated anime browsing application built with React, TypeScript, Tailwind CSS, and Framer Motion. Features a curated collection of 24 popular anime with advanced filtering, sorting, and detailed views.
+A modern, animated anime browsing application built with React, TypeScript, Tailwind CSS, and Framer Motion. Features a curated collection of 39 popular anime with advanced filtering, sorting, and detailed views.
 
-![AnimeHub Preview](https://img.shields.io/badge/React-18-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-38bdf8) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-pink) ![Vite](https://img.shields.io/badge/Vite-5-purple)
+![GAURAVANIME Preview](https://img.shields.io/badge/React-18-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-38bdf8) ![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-pink) ![Vite](https://img.shields.io/badge/Vite-5-purple)
 
 ## 🎯 Features
 
-- **Curated Anime Collection** — 24 hand-picked popular anime with scores, genres, studios, and synopses
+- **Curated Anime Collection** — 39 hand-picked popular anime with scores, genres, studios, and synopses
 - **Advanced Filtering** — Filter by genre, studio, year with multi-select support
 - **Flexible Sorting** — Sort by score, year, title, or episodes (asc/desc)
 - **Real-time Search** — Search across titles, genres, and studios
@@ -121,7 +121,7 @@ Open http://localhost:5173 in your browser.
 ### Data Flow
 
 ```
-src/data/anime.ts (24 anime)
+src/data/anime.ts (39 anime)
          │
          ▼
 src/hooks/useAnimeFilter.ts
