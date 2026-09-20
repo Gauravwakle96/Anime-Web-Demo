@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   CalendarDays,
   Compass,
@@ -30,6 +31,7 @@ export default function Navbar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const { user } = useAuth();
 
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
@@ -95,9 +97,9 @@ export default function Navbar() {
             <Heart className="h-4 w-4" />
           </Link>
           <Link
-            to="/profile"
+            to={user ? "/profile" : "/login"}
             className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-secondary/50 text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
-            aria-label="Profile"
+            aria-label={user ? "Profile" : "Login"}
           >
             <User className="h-4 w-4" />
           </Link>
@@ -159,12 +161,12 @@ export default function Navbar() {
               Library
             </Link>
             <Link
-              to="/profile"
+              to={user ? "/profile" : "/login"}
               onClick={() => setMobileOpen(false)}
               className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-xl border border-border/60 bg-secondary/50 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors"
             >
               <User className="h-4 w-4" />
-              Profile
+              {user ? "Profile" : "Login"}
             </Link>
           </div>
         </div>
