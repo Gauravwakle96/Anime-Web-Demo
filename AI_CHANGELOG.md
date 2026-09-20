@@ -107,3 +107,10 @@
 ### Added / Changed / Fixed / Removed
 - Description
 ```
+
+## [Fixes] — 2026-09-15
+- Applied fixes to the expanded GAURAVANIME build.
+- Removed the duplicate Naruto Shippuden record.
+- Fixed MyAnimeList links and added an official metadata link to routed details.
+- Updated remaining HTML/README branding.
+- Added keyboard-accessible title cards, Netlify security headers, robots.txt, and sitemap.xml.
