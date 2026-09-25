@@ -9,7 +9,7 @@ import GenreChips from "@/components/common/GenreChips";
 import SectionHeader from "@/components/common/SectionHeader";
 import SkeletonGrid from "@/components/common/SkeletonGrid";
 import { StatusBadge } from "@/components/common/StatusBadge";
-import TitleCard from "@/components/common/TitleCard";
+import AnimeSpotlightCard from "@/components/anime/AnimeSpotlightCard";
 import LibraryActions from "@/components/common/LibraryActions";
 import PosterImage from "@/components/common/PosterImage";
 import { displayTitle, formatYear, genreList, progressLabel, typeLabel } from "@/lib/title";
@@ -142,11 +142,11 @@ export default function DetailsPage() {
 
       <section className="container py-12">
         <SectionHeader title="You may also like" description="Related titles selected from the same genres and formats." />
-        {related.length === 0 ? <EmptyState title="No recommendations yet" description="There are no related titles in this catalogue yet." /> : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">{related.map((item, index) => <TitleCard key={item.id} title={item} index={index} />)}</div>}</section>
+        {related.length === 0 ? <EmptyState title="No recommendations yet" description="There are no related titles in this catalogue yet." /> : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">          {related.map((item, index) => <AnimeSpotlightCard key={item.id} title={item} index={index} />)}</div>}</section>
 
       <section className="container pb-24 pt-12">
         <SectionHeader title="Popular in this format" description="Community favorites from the same content type." action={<Link to={`/browse?type=${title.type}`} className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">Browse all {title.type}s <ChevronRight className="h-3.5 w-3.5" /></Link>} />
-        {recommended.length === 0 ? <EmptyState title="No titles yet" description="This format does not have additional recommendations right now." /> : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">{recommended.map((item, index) => <TitleCard key={item.id} title={item} index={index} />)}</div>}</section>
+        {recommended.length === 0 ? <EmptyState title="No titles yet" description="This format does not have additional recommendations right now." /> : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">{recommended.map((item, index) => <AnimeSpotlightCard key={item.id} title={item} index={index} />)}</div>}</section>
     </main>
   );
 }

@@ -5,7 +5,7 @@ import { allTitles } from "@/data/catalog";
 import EmptyState from "@/components/common/EmptyState";
 import GenreChips from "@/components/common/GenreChips";
 import SectionHeader from "@/components/common/SectionHeader";
-import TitleCard from "@/components/common/TitleCard";
+import AnimeSpotlightCard from "@/components/anime/AnimeSpotlightCard";
 import TypeTabs from "@/components/common/TypeTabs";
 import { displayTitle, genreList } from "@/lib/title";
 import type { TitleType } from "@/types";
@@ -142,7 +142,7 @@ export default function CatalogPage() {
         <EmptyState icon="search" title="No stories found" description="Try a different search, genre, or format to see more results." actionLabel="Clear filters" actionHref="/browse" />
       ) : (
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
-          {filtered.map((title, index) => <TitleCard key={title.id} title={title} index={index} />)}
+          {filtered.map((title, index) => <AnimeSpotlightCard key={title.id} title={title} index={index} />)}
         </div>
       )}
     </main>

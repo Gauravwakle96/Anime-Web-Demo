@@ -1,30 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 import { Users, AlertCircle } from 'lucide-react';
 
+interface Profile {
+  id: string;
+  email?: string;
+  created_at?: string;
+  last_sign_in_at?: string;
+}
+
 export default function AdminUsersPage() {
   const { user, isLoading } = useAuth();
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!supabase) {
+    const client = supabase;
+    if (!client) {
       setLoading(false);
       return;
     }
-    
+
     // In a real app, this would be a secure admin-only function.
     // For demo purposes, we fetch all users if configured.
     const fetchUsers = async () => {
       // Supabase auth.admin is only available on server-side.
       // So you'd typically have a 'profiles' table that syncs with auth.
-      const { data } = await supabase.from('profiles').select('*');
-      if (data) setUsers(data);
+      const { data } = await client.from('profiles').select('*');
+      if (data) setUsers(data as Profile[]);
       setLoading(false);
     };
-    
+
     fetchUsers();
   }, []);
 
@@ -59,7 +67,7 @@ export default function AdminUsersPage() {
           <div className="p-8 text-center text-muted-foreground">Loading users...</div>
         ) : users.length === 0 ? (
           <div className="p-8 text-center text-muted-foreground">
-            No users found. Ensure your 'profiles' table is set up.
+            No users found. Ensure your &apos;profiles&apos; table is set up.
           </div>
         ) : (
           <table className="w-full text-left border-collapse">
@@ -74,7 +82,7 @@ export default function AdminUsersPage() {
               {users.map((u) => (
                 <tr key={u.id} className="border-b border-border hover:bg-muted/30 transition-colors">
                   <td className="px-6 py-4">{u.email}</td>
-                  <td className="px-6 py-4">{new Date(u.created_at).toLocaleDateString()}</td>
+                  <td className="px-6 py-4">{u.created_at ? new Date(u.created_at).toLocaleDateString() : 'N/A'}</td>
                   <td className="px-6 py-4">{u.last_sign_in_at ? new Date(u.last_sign_in_at).toLocaleString() : 'N/A'}</td>
                 </tr>
               ))}

@@ -89,6 +89,7 @@ const config: Config = {
       backgroundImage: {
         "hero-gradient":
           "linear-gradient(to top, hsl(var(--background)) 5%, transparent 60%)",
+
       },
     },
   },

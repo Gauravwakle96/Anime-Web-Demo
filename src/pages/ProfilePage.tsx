@@ -6,7 +6,7 @@ import { useLibrary } from "@/contexts/LibraryContext";
 import EmptyState from "@/components/common/EmptyState";
 import PosterImage from "@/components/common/PosterImage";
 import SectionHeader from "@/components/common/SectionHeader";
-import TitleCard from "@/components/common/TitleCard";
+import AnimeSpotlightCard from "@/components/anime/AnimeSpotlightCard";
 import { displayTitle, progressLabel } from "@/lib/title";
 
 export default function ProfilePage() {
@@ -86,7 +86,7 @@ export default function ProfilePage() {
 
       <section className="container py-12">
         <SectionHeader title="Favorites" description="Titles you have marked as favorites." />
-        {favorites.length === 0 ? <EmptyState icon="heart" title="No favorites yet" description="Tap the heart on any title to keep it close." actionLabel="Explore titles" actionHref="/browse" /> : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">{favorites.map((entry) => { const title = allTitles.find((item) => item.id === entry.titleId); return title ? <TitleCard key={entry.titleId} title={title} /> : null; })}</div>}</section>
+        {favorites.length === 0 ? <EmptyState icon="heart" title="No favorites yet" description="Tap the heart on any title to keep it close." actionLabel="Explore titles" actionHref="/browse" /> : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">{favorites.map((entry) => { const title = allTitles.find((item) => item.id === entry.titleId); return title ? <AnimeSpotlightCard key={entry.titleId} title={title} /> : null; })}</div>}</section>
 
       <section className="container pb-24 pt-12">
         <SectionHeader title="Reading and watching stats" description="A quick snapshot of your local collection." />

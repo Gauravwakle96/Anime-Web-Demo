@@ -1,7 +1,7 @@
 # Project Context — AnimeHub
 
 ## Project Purpose
-AnimeHub is a **client-side anime discovery and browsing application**. It presents a curated collection of 24 popular anime titles with filtering, sorting, and detail views. Built as a portfolio/demo project showcasing React, TypeScript, Tailwind CSS, and Framer Motion.
+AnimeHub / GAURAVANIME is a **client-side anime discovery and browsing application** with a curated collection of 416 titles (180 anime + 236 reading entries). Features include catalog browsing, filtering, search, detailed title pages, local-first library tracking, and Supabase authentication with Google OAuth.
 
 ## Technology Stack
 | Layer | Technology |
@@ -27,9 +27,10 @@ AnimeHub is a **client-side anime discovery and browsing application**. It prese
 ## Important Dependencies
 **Runtime:**
 - `react`, `react-dom` — Core framework
-- `react-router-dom` — Client-side routing (currently unused, only BrowserRouter in main.tsx)
-- `framer-motion` — Declarative animations
+- `react-router-dom` — Client-side routing with public/anon browsing and protected routes
+- `framer-motion` — Declarative animations + 21st.dev AnimatedMarqueeHero
 - `lucide-react` — Icon system
+- `@supabase/supabase-js` — Authentication (email/password + Google OAuth via Supabase)
 - `@radix-ui/*` — Accessible UI primitives
 - `class-variance-authority`, `clsx`, `tailwind-merge` — Class composition
 
@@ -40,26 +41,33 @@ AnimeHub is a **client-side anime discovery and browsing application**. It prese
 - `eslint` 9 + plugins
 
 ## Frontend Architecture
-- **Single-page application** (SPA) with client-side routing
-- **Component-based** architecture with clear separation:
-  - Layout: `Navbar`, `Footer`
-  - Features: `HeroSection`, `FilterBar`, `AnimeCard`, `AnimeDetailModal`, `StatsSection`
-- **State management**: React `useState` + `useMemo` in custom hook `useAnimeFilter`
-- **Data**: Static JSON-like array in `src/data/anime.ts` (24 anime objects)
-- **No backend/API** — all data is bundled
+- **Single-page application** (SPA) with client-side routing via React Router v6
+- **Component-based** architecture:
+  - Layout: `Navbar` (with genre mega-menu + user dropdown), `Footer`
+  - Anime: `HeroSection` (AnimatedMarqueeHero), `AnimeSpotlightCard` (GlowCard wrapper), `AnimeDetailModal`, `StatsSection`, `FilterBar`
+  - Common: `GenreChips`, `SectionHeader`, `SkeletonGrid`, `StatusBadge`, `TitleCard`, `TypeTabs`
+  - UI: `spotlight-card.tsx` (21st.dev GlowCard), `hero-3.tsx` (21st.dev AnimatedMarqueeHero)
+- **State management**: React `useState`/`useMemo`/`useEffect` + Context API (LibraryContext, AuthContext, ToastContext)
+- **Data**: Static TS data in `src/data/` — 180 anime entries + 236 reading entries, combined into unified `allTitles` catalogue via `catalog.ts`
+- **No backend API calls** — all data is bundled; Supabase used only for auth
 
 ## Backend Architecture
-**None.** This is a purely client-side application.
+**Supabase Auth only.** Client-side app with Supabase for authentication (email/password + Google OAuth). No Supabase database/storage used. Library data stored in localStorage.
 
 ## Database
-**None.** Static data in TypeScript files.
+**None.** Title data is static TypeScript. Library entries stored in `localStorage` under key `gauravanime:library`.
 
 ## Authentication
-**None.** No user accounts, no auth.
+**Supabase Auth** with:
+- `AuthProvider` (`src/contexts/AuthContext.tsx`) — manages `user`, `session`, `isLoading`, `signOut`
+- `AuthPage` (`src/pages/AuthPage.tsx`) — email/password login + signup + Google OAuth via `supabase.auth.signInWithOAuth({ provider: 'google' })`
+- Supabase client: env-var driven (`VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`), safely nulls when unconfigured
+- Protected routes via `ProtectedRoute` wrapper for `/library`, `/profile`, `/admin/users`
 
 ## Important APIs
-**External:** None used at runtime.
-**Build-time:** MyAnimeList data was sourced via Jikan API (https://jikan.moe) to create the static dataset.
+**Runtime data:** Static TS arrays in `src/data/` (no API calls).
+**Auth:** `@supabase/supabase-js` — email/password sign-in/sign-up + Google OAuth via `signInWithOAuth`.
+**Build-time:** Anime data was originally sourced via Jikan API (https://jikan.moe).
 
 ## Important Conventions
 - **Path alias**: `@/` maps to `src/` (vite.config.ts)
@@ -71,9 +79,12 @@ AnimeHub is a **client-side anime discovery and browsing application**. It prese
 - **Responsive**: Mobile-first, breakpoints at `md:` (768px) and `lg:` (1024px)
 
 ## Major Architectural Decisions
-1. **Static data over API** — Simplifies deployment, zero runtime dependencies
-2. **Client-side filtering** — All 24 items in memory, instant filter/sort
-3. **Radix UI + Tailwind** — Accessible primitives with utility styling (shadcn/ui pattern)
-4. **CSS variables for theming** — Enables easy theme changes without rebuilding
-5. **No global state library** — React built-ins sufficient for this scale
+1. **Static data over API** — 416 titles bundled, zero runtime data dependencies
+2. **Client-side filtering** — All titles in memory, instant filter/sort
+3. **Radix UI + Tailwind + 21st.dev components** — Accessible primitives with utility styling
+4. **CSS variables for theming** — Golden palette (primary=gold HSL 42, accent=bronze HSL 35, secondary=deep purple HSL 260)
+5. **Context API for state** — LibraryContext (localStorage), AuthContext (Supabase), ToastContext
 6. **Dark mode only** — Design decision, no light theme toggle
+7. **Code splitting** — `React.lazy` + `Suspense` per route, `manualChunks` in vite.config.ts
+8. **Global cursor tracker** — Single `pointermove` listener with `requestAnimationFrame` for 21st.dev GlowCard performance across many cards
+9. **No hardcoded Supabase keys** — env-var driven with safe null fallback

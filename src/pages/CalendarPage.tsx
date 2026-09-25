@@ -5,7 +5,7 @@ import EmptyState from "@/components/common/EmptyState";
 import SectionHeader from "@/components/common/SectionHeader";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import PosterImage from "@/components/common/PosterImage";
-import TitleCard from "@/components/common/TitleCard";
+import AnimeSpotlightCard from "@/components/anime/AnimeSpotlightCard";
 import { displayTitle, typeLabel } from "@/lib/title";
 
 export default function CalendarPage() {
@@ -65,7 +65,7 @@ export default function CalendarPage() {
               </article>
             ))}
           </div>
-          <section className="pt-12"><SectionHeader title="Keep exploring" description="More anime from the catalogue." />            {airing.slice(0, 6).map((title) => <TitleCard key={title.id} title={title} />)}</section>
+          <section className="pt-12"><SectionHeader title="Keep exploring" description="More anime from the catalogue." />            {airing.slice(0, 6).map((title) => <AnimeSpotlightCard key={title.id} title={title} />)}</section>
         </>
       )}
     </main>
