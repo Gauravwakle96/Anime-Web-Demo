@@ -1,0 +1,8 @@
+project_id = "xmxvmobyfiyhlqxnbgar"
+
+[auth]
+site_url = "https://anime-web-demo.vercel.app"
+additional_redirect_urls = [
+  "https://anime-web-demo.vercel.app/**",
+  "http://localhost:5173/**",
+]

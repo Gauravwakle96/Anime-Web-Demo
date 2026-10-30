@@ -34,3 +34,5 @@ coverage/
 .cache/
 tsconfig.app.tsbuildinfo
 .serena/
+.vercel/
+supabase/.temp/

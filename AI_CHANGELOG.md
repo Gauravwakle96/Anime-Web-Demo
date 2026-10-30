@@ -1,5 +1,19 @@
 # Changelog — AnimeHub
 
+## [Unreleased] — Vercel + Supabase Production Configuration (2026-10-30)
+
+### Added
+- `supabase/config.toml` with production and local authentication redirect URLs.
+- `vercel.json` SPA rewrite so direct routes such as `/login` and `/library` load correctly.
+- Ignore rules for local Vercel and Supabase CLI state.
+
+### Deployed
+- Created and linked the `anime-web-demo` Supabase project in `ap-south-1`.
+- Applied the `user_library` migration and RLS policies.
+- Configured Vercel production, preview, and development Supabase variables.
+
+---
+
 ## [Unreleased] — Cloud-Synced User Collections (2026-10-30)
 
 ### Added
