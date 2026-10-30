@@ -1,4 +1,4 @@
-const fs = require("fs");
+import fs from "fs";
 
 const animeContent = fs.readFileSync("src/data/expandedAnime.ts", "utf8");
 const readingContent = fs.readFileSync("src/data/reading.ts", "utf8");

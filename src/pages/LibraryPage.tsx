@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { BookOpenCheck, Flame, Heart, Library, Star } from "lucide-react";
+import { BookOpenCheck, Cloud, CloudOff, Flame, Heart, Library, Loader2, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { allTitles } from "@/data/catalog";
 import { useLibrary } from "@/contexts/LibraryContext";
@@ -24,7 +24,7 @@ const tabs: Array<{ label: string; value: LibraryStatus | "all" | "favorites" }>
 ];
 
 export default function LibraryPage() {
-  const { entries, continueItems, favorites, stats } = useLibrary();
+  const { entries, continueItems, favorites, stats, isSyncing, syncError, storageMode } = useLibrary();
   const [activeTab, setActiveTab] = useState<LibraryStatus | "all" | "favorites">("all");
 
   const entriesWithTitle = useMemo(() => entries
@@ -67,7 +67,22 @@ export default function LibraryPage() {
 
       <div className="mt-8 flex flex-wrap items-end justify-between gap-4">
         <SectionHeader title={tabs.find((tab) => tab.value === activeTab)?.label || "Library"} description={`${activeCount} ${activeCount === 1 ? "title" : "titles"} in this view`} />
-        <div className="text-xs text-muted-foreground">Stored locally in your browser</div>
+        <div className={`inline-flex items-center gap-2 text-xs ${syncError ? "text-amber-400" : "text-muted-foreground"}`} role="status" aria-live="polite">
+          {isSyncing ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : syncError ? (
+            <CloudOff className="h-3.5 w-3.5" />
+          ) : (
+            <Cloud className="h-3.5 w-3.5" />
+          )}
+          {isSyncing
+            ? "Syncing your collection..."
+            : syncError
+              ? syncError
+              : storageMode === "cloud"
+                ? "Securely synced to your account"
+                : "Stored on this device"}
+        </div>
       </div>
 
       {visible.length === 0 ? (

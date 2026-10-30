@@ -52,10 +52,10 @@ AnimeHub / GAURAVANIME is a **client-side anime discovery and browsing applicati
 - **No backend API calls** — all data is bundled; Supabase used only for auth
 
 ## Backend Architecture
-**Supabase Auth only.** Client-side app with Supabase for authentication (email/password + Google OAuth). No Supabase database/storage used. Library data stored in localStorage.
+**Supabase Auth + user library storage.** Supabase provides email/password and Google OAuth authentication plus the `user_library` table. Guests use localStorage; after login their guest collection is merged into their private cloud collection.
 
 ## Database
-**None.** Title data is static TypeScript. Library entries stored in `localStorage` under key `gauravanime:library`.
+Title data remains static TypeScript. Per-user favorites, status, ratings, and progress are stored in Supabase `public.user_library`, protected by Row-Level Security. A user-scoped localStorage cache supports fast startup and temporary sync failures.
 
 ## Authentication
 **Supabase Auth** with:
@@ -83,7 +83,7 @@ AnimeHub / GAURAVANIME is a **client-side anime discovery and browsing applicati
 2. **Client-side filtering** — All titles in memory, instant filter/sort
 3. **Radix UI + Tailwind + 21st.dev components** — Accessible primitives with utility styling
 4. **CSS variables for theming** — Golden palette (primary=gold HSL 42, accent=bronze HSL 35, secondary=deep purple HSL 260)
-5. **Context API for state** — LibraryContext (localStorage), AuthContext (Supabase), ToastContext
+5. **Context API for state** — LibraryContext (Supabase sync + local fallback), AuthContext (Supabase), ToastContext
 6. **Dark mode only** — Design decision, no light theme toggle
 7. **Code splitting** — `React.lazy` + `Suspense` per route, `manualChunks` in vite.config.ts
 8. **Global cursor tracker** — Single `pointermove` listener with `requestAnimationFrame` for 21st.dev GlowCard performance across many cards

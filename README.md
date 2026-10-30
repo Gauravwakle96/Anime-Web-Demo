@@ -107,6 +107,19 @@ npm run dev
 
 Open http://localhost:5173 in your browser.
 
+### Enable accounts and cloud collections
+
+1. Create a Supabase project and copy `.env.example` to `.env`.
+2. Add the project URL and publishable anon key to `.env`.
+3. Open the Supabase SQL editor and run
+   `supabase/migrations/20261030_create_user_library.sql`.
+4. In Supabase Authentication, enable email/password and optionally Google OAuth.
+5. Add your local and deployed URLs to the Supabase authentication redirect URLs.
+
+Anime discovery remains public. Guest collection changes are saved in the browser and
+are merged into the user's private cloud collection after login. Row-Level Security
+ensures each signed-in user can only access their own saved titles.
+
 ## 📜 Available Scripts
 
 | Command | Description |

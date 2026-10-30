@@ -1,5 +1,36 @@
 # Changelog — AnimeHub
 
+## [Unreleased] — Cloud-Synced User Collections (2026-10-30)
+
+### Added
+- Supabase `user_library` migration with authenticated Row-Level Security policies.
+- Per-user cloud persistence for favorites, library status, ratings, and progress.
+- Guest collection migration into the signed-in user's account on first successful sync.
+- User-scoped local cache and visible sync status on the Library page.
+
+### Changed
+- `LibraryContext` now keeps the existing local experience as an offline fallback while synchronizing authenticated collections to Supabase.
+- README and environment setup now document the required Supabase configuration.
+- Updated the legacy data-analysis helper to ES module syntax so the repository lint gate passes.
+
+### Files Changed
+- `src/contexts/LibraryContext.tsx`
+- `src/pages/LibraryPage.tsx`
+- `.env.example`
+- `README.md`
+- `AI_CONTEXT.md`
+- `AI_TASK.md`
+- `analyze_data.js`
+
+### Files Added
+- `supabase/migrations/20261030_create_user_library.sql`
+
+### Verified
+- `npm run lint` — passes with zero errors.
+- `npm run build` — passes (2026 modules transformed).
+
+---
+
 ## [Unreleased] — Platform Polish: Genre System, Auth, Footer, Homepage (2026-09-20)
 
 ### Added

@@ -20,6 +20,8 @@ Transform the existing Anime Hub into a polished anime discovery platform using 
 - User profile dropdown in Navbar
 - Homepage: horizontal trending + new releases sections
 - AnimeSpotlightCard replacing TitleCard across all pages
+- Supabase-backed per-user collections with guest fallback and first-login merge
+- Row-Level Security migration for private favorites, ratings, status, and progress
 
 ## Remaining
 - Optional: Add horizontal scroll to more sections
